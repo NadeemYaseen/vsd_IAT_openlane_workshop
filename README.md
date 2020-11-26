@@ -32,16 +32,13 @@ The follownig snapshot shows different things in a package:
 
 Top view of package         |  Internal of package
 :--------------------------:|:-------------------------:
-![Die Image](./pads_die.png)| ![Macro Image](./macro.png)
-
-
-
+![Die Image](./images/pads_die.png)| ![Macro Image](./images/macro.png)
 
 ### From software to hardware:
 
 An algorithm is implemented in high level language like a code of sorting the number in decreasing order written in C++. This code written in a high-level language is given to the compiler which converts it into instruction, the syntax of these instruction depends upon the type of architecture that is used to develop the hardware. For example, in our case, RISCV architecture is used to write the RTL code from which the hardware is developed. The instruction from the compiler are fed to the assembler which convert them in binary number and these binary numbers are passed to hardware which do the working and display the result of written code. The below diagram shows this flow:
 
-![From software to hardware Image](./soft_to_hard.png)
+![From software to hardware Image](./images/soft_to_hard.png)
 
 #### Requirements to build ASIC:
 
@@ -56,7 +53,7 @@ Now a days, there are a lot of open sources like opencores.org to get the RTL co
 
 The following diagram shows the step from a design written in HDL to generate the GDSII file required by the foundry to build the physical layout
 
-![ASIC Flow Image](./asic_flow.png)
+![ASIC Flow Image](./images/asic_flow.png)
 
 * Synth (synthesis)-> The standard cell library is used to convert the RTL code into a circuit.
 
@@ -69,15 +66,15 @@ The following diagram shows the step from a design written in HDL to generate th
 ### OpenLane:
 Openlane is an open-source tool that encompasses the open-source EDA tools to automate the flow from RTL to GDSII. it has public repo on Github. The below diagram shows the complete flow of Openlane.
 
-![OpenLane Flow Image](./openLane_flow.png)
+![OpenLane Flow Image](./images/openLane_flow.png)
 
 The flow starts by feeding the RTL files with design constraints to yosys which translates it to into a logic circuit using generic components and then abc maps this circuit to cells. The OpenSTA do static timing analysis. Then OpenRoad apps are used to do the physical implementation. Again yosys is used to do the logic equivalence check (LEC). In the last, the static time analysis, design rule checking, and layout vs schematic checking is performed.
 
 ### Lab:
 The lab task was to explore the directory structure of the openlane, take the picorv32a design, and pass it through the Oplenlane flow, and analyze the synthesis reports. The following blow diagram shows the synthesis report form which the flop ratio is calculated by dividing the number of flip-flops by the number of cells. Similarly, the total area can also be seen in the report
 
-![yosys report Image](./yosys_report.png)
+![yosys report Image](./images/yosys_report.png)
 
 The below images is showing the static timing time analysis and the result is confirming that the time requirements are met.
 
-![sta report Image](./sta_rpt.png)
+![sta report Image](./images/sta_rpt.png)
