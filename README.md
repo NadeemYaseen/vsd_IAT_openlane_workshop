@@ -78,3 +78,80 @@ The lab task was to explore the directory structure of the openlane, take the pi
 The below screenshots is showing the static timing time analysis and the result is confirming that the time requirements are met.
 
 ![sta report Image](./screenshots/sta_rpt.png)
+
+# Day 2
+
+if we done step like floorplaning and want to change the some of the configuration for same step then first locate the variable in configuration files and do
+
+            % set <copy variable from config file> <new value>
+            % <run the command of step again>
+
+
+# Day 3
+Thi day is about designing a library cell using 2 tool i.e. Magic Layout and ngspice characterization
+
+#### Spice simultion step:
+
+The first step is preparation of Spice Deck which involves following things
+
+
+![Spice Deck Requirement Image](./screenshots/spic_deck_requirment.png)
+
+Then from this information a spice simulation file is written for static and transition analysis. This file is passed to ngspice tool and simulation is run to draw the wavefrom. From the static analysis simulation waveform, we can zoom in to see threshold voltage and from transition anaylsis wavefrom the rise and fall times can be calculated.
+
+#### 16-mask CMOS process:
+
+The is the process of pysical impplementation of CMOS inverter.
+
+**Steps:**
+
+1 Selecting a substrate. Substrate is a material on which chip is fabricated.
+
+2. Craeting the active region for transisters. The region of substrate where PMOS and CMOS is placed. 
+
+3. N-well and P-well formation.
+
+4. formation of gate.
+
+5. Lightly Doped Drain formation.
+
+6. Source drain formation.
+
+7. local interact formation.
+
+8. High metal formation.
+  
+The below diagram shows the result of above steps
+  
+  ![16-mask Process Image](./screenshots/16-mask-process.png)
+
+# Lab
+
+Following the step on this [github link](https://github.com/nickson-jose/vsdstdcelldesign) the following inverter layout is obtained
+  
+   ![16-mask Process Image](./screenshots/inverter_magic_layout.png)
+  
+After this, extracting the file for spice simulation using the commands
+
+            % extract all
+            % ext2spice cthresh 0 rthresh 0
+            $ ext2spice
+
+After Modifying the extracted file, it look like this
+  
+  ![Spice Deck File Image](./screenshots/spice_deck_file.png)
+
+Run the spice with command in clone directry
+
+          $ ngspice <extracted file name>.spice
+
+To see the output run this command in ngspice terminal
+  
+          ngspice 1 -> plot y vs time a
+ 
+It will display the following kind of waveform:
+
+![Spice Trans Waveform Image](./screenshots/spice_waveform.png)
+
+
+  
