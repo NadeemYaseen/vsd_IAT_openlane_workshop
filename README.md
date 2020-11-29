@@ -377,3 +377,12 @@ It will print the below,
 After this, routing is done using the command,
 
                      % run_routing
+# Acknowledgement
+
+* Kunal Ghosh, Co-founder, VSD Corp. Pvt. Ltd
+
+* Openlane team, Efabless corporation
+
+* Philipp Gühring, Developer at Falcontrol
+
+* Nickson Jose, VLSI Engineer
