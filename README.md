@@ -201,7 +201,7 @@ And then
             % <run the command of step again>
 
 # Day 3:
-Thi day is about designing a library cell using 2 tool i.e. Magic Layout and ngspice characterization
+Thi day is about designing a library cell using 2 tool i.e. Magic Layout and ngspice.
 
 #### Spice simultion step:
 
@@ -267,6 +267,8 @@ It will display the following kind of waveform:
 ![Spice Trans Waveform Image](./screenshots/spice_waveform.png)
 
 # Day 4:
+
+The concept of setup timing analysis and how to do it in OPenSTA is taught. 
 
 * Delay table is drawn between the input slew (input transition time in ps) and output load (capacitance) and shows that how much time is taken by a cell to drive the certain load.
 
