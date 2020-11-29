@@ -234,7 +234,7 @@ The below diagram shows the result of the above steps
 
 Following the step on this [github link](https://github.com/nickson-jose/vsdstdcelldesign) the following inverter layout is obtained
   
-   ![16-mask Process Image](./screenshots/inverter_magic_layout.png)
+   ![Inverter magic layout Image](./screenshots/inverter_magic_layout.png)
   
 After this, extracting the file for spice simulation using the commands
 
@@ -257,3 +257,89 @@ To see the output run this command in ngspice terminal
 It will display the following kind of waveform:
 
 ![Spice Trans Waveform Image](./screenshots/spice_waveform.png)
+
+# Day 4
+
+* Delay table is drawn between the input slew (input transition time in ps) and output load (capacitance) and shows that how much time is taken by a cell to drive the certain load.
+
+* Setup timing analysis
+
+Setup Time is the time required by flip flop to settle its input
+Jitter refers to the window within which the clock edge can arrive on a real chip. It is the temporary variation of the clock period. It is also referred to as uncertainty
+
+From above we can say that the total period is like
+
+           time taken by combinational logic and clock to Q time of flip flop < (total clock period - setup time - uncertainty)
+
+* Real-time scenario 
+
+In the chip, different elements are at different distances from the clock pin so the clock signal needs to cover different distances to reach a particular element. So this will make the clock signal time different for elements and referred to as skew. This skew should be kept close to zero and it is achieved by applying different techniques like H-tree etc and repeaters to maintain the signal integrity. To avoid the cross-talk problem we shield the network of the clock. Now due to these buffer, the time required for the signal to reach flop is 
+
+time taken by combinational logic + clock to Q time of flip flop + sum of all buffer in a way from clock to launched flop < ({total clock period + sum of all buffer in a way from clock to captured flop} - setup time - uncertainty)
+
+  ![Setup Time Analysis Image](./screenshots/time_analysi.png)
+
+#### Lab
+
+This lab is about how to use our custom make cell in OpenLane flow. The inverter layout in magiclayout tool that was used to extract the spice deck to do the spice simulation is on day 3 is now used to make a lef file. This lef file will contain the information of boundary, power and ground rates, and input & output ports. To extract the lef life a certain guidelines have to be followed. For example, input and output ports must lie at the intersection of vertical and horizontal tracks. The width of the standard cell should be an odd multiple of horizontal track pitch and height should be an odd multiple of vertical track pitch. So to meet this guideline we used the `pdks/sky130A/libs.tech/openlane/sky130_fd_sc_hd/tracks.info` file to set the grid parameter of magiclayout tool grid using the command:
+
+To check the parameter that grid command accept use:
+
+                    % help grid
+                    
+And then from the `track.info` file plugin in the values
+
+                    % grid 0.46um 0.34um 0.23um 0.46um
+                    
+The below figure shows the grid before and after the execution of the command:
+
+  Before the command execution                                     |  After the command execution
+:-----------------------------------------------------------------:|:-------------------------:
+![grid_before_command Image](./screenshots/grid_before_command.png)| ![grid_after_command Image](./screenshots/grid_after_command.png)
+
+Follow the other instruction on the Github link to set the input/output and ground/power ports.
+
+Now save the cell with a custom name using the command
+
+                  % save <custom_name>.mag
+                  
+Then open this save file using the command
+
+                 $ magic -T sky130A.tech <custom_name>.mag &
+               
+Then in the TCL shell of magic run this command
+
+                 % lef write
+               
+This will make a lef file having content like this:
+
+![content_of_selfmake_lefFile Image](./screenshots/content_of_selfmake_lefFile.png)
+
+Now copy this file and the sky130 library file present in lib folder of [github clone directory](https://github.com/nickson-jose/vsdstdcelldesign) into `/design/src` directory. Modify the `/openlane/designs/<design name>/config.tcl` according to the Nickson Github repo. Run the OpenLane in interactive mode, do the design preparation stage then execute the commands as given in repo to tell the OpenLane to include our lef file. Then running the synthesis will include our lef file. Then running the floorplanning step will make include our cell file in `<design name>/runs/<custom folder name for results>/temp/mergered.lef` file. We can load the tech file and this lef file with the magic tool and can check the placement of our cell.
+
+#### Using OpenSTA:
+
+To run the OpenSTA tool first do the synthesis and then write a configuration file for OpenSTA in `openlane` directory like this
+
+![content of ppre sta config Image](./screenshots/sta_config.png)
+
+And then the STA analysis
+
+             % sta <sta config file>
+
+These commands will report the slack time like
+
+![sta report all Image](./screenshots/sta_rpt_chk.png)
+
+To write the netlist  generated by OpenSTA to Verilog file, execute the following command in OPenSTA TCL shell 
+
+                    % write_verilog <directory where OpenLane place its syntheis file i.e. /openlane/designs/<design name>/runs/<custom name of results>/results/synthesis/<file name like Openlane used>>
+            
+This will overwrite the file present there.
+Now the CTS is done using the below command in OpenLane flow
+
+                   % run_cts
+                   
+It will display the following on terminal
+
+![cts report Image](./screenshots/cts_log.png)
