@@ -2,6 +2,14 @@
 
 It contains the material that was presented and learned in a 5 day workshop from 25 to 29 November conducted by Kunal Ghosh, co-founder of VLSI System Design (VSD) Corp. Pvt. Ltd. 
 
+# Contents:
+
+* [Day 1](#Day-1:)
+* [Day 2](#Day-2:)
+* [Day 3](#Day-3:)
+* [Day 4](#Day-4:)
+* [Day 5](#Day-5:)
+
 # Day 1:
 
 The main learning objective of Day 1 are:
@@ -79,7 +87,7 @@ The below screenshots is showing the static timing time analysis and the result 
 
 ![sta report Image](./screenshots/sta_rpt.png)
 
-# Day 2
+# Day 2:
 
 In Day 2, the following concepts are introduced:
 
@@ -192,7 +200,7 @@ And then
 
             % <run the command of step again>
 
-# Day 3
+# Day 3:
 Thi day is about designing a library cell using 2 tool i.e. Magic Layout and ngspice characterization
 
 #### Spice simultion step:
@@ -258,7 +266,7 @@ It will display the following kind of waveform:
 
 ![Spice Trans Waveform Image](./screenshots/spice_waveform.png)
 
-# Day 4
+# Day 4:
 
 * Delay table is drawn between the input slew (input transition time in ps) and output load (capacitance) and shows that how much time is taken by a cell to drive the certain load.
 
@@ -343,3 +351,27 @@ Now the CTS is done using the below command in OpenLane flow
 It will display the following on terminal
 
 ![cts report Image](./screenshots/cts_log.png)
+
+# Day 5:
+
+This day is about routing, its algorithm, and design rule checking (DRC)
+
+Routing in physical design means connecting the 2 points through the best and shortest path.
+One of the famous Routing algorithm is [Lee's algorithm](https://www.vlsisystemdesign.com/maze-routing-lees-algorithm/) for maze routing.
+
+#### Lab
+
+This day lab is creating a power distribution network and routing.
+
+After the CTS is done, run the below command in interactive mode of OpenLane to generate the power distribution network.
+
+                         % gen_pdn
+                         
+It will print the below,
+
+
+![pdn report Image](./screenshots/pdn_log.png)
+
+After this, routing is done using the command,
+
+                     % run_routing
