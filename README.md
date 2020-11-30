@@ -1,14 +1,22 @@
-# vsd_IAT_openlane_workshop
+# Advanced OpenLANE Workshop
 
-It contains the material that was presented and learned in a 5 day workshop from 25 to 29 November conducted by Kunal Ghosh, co-founder of VLSI System Design (VSD) Corp. Pvt. Ltd. 
+![Advanced Physical Design Image](./screenshots/advanced_physical_design.png)
+
+It contains the material that was presented and learned in a 5 day workshop from 25 to 29 November conducted by Kunal Ghosh, co-founder of VLSI System Design (VSD) Corp. Pvt. Ltd. During the workshop, the concept related to pyhsical implementation of a digital design were explained in detials along with the on hand labs using the OpenLane flow.   
 
 # Contents:
-
+* [Intro](#Intro:)
 * [Day 1](#Day-1:)
 * [Day 2](#Day-2:)
 * [Day 3](#Day-3:)
 * [Day 4](#Day-4:)
 * [Day 5](#Day-5:)
+
+# Intro:
+
+The process to have the chip in hand start with writing an HDL according to the specification and ends at the GDSII file which is sent to the foundry to manufacture the chip. Although many open source resources are available for HDL code and tools to perform various kinds of tests on them to implement them physically an important item call [PDK](https://en.wikipedia.org/wiki/Process_design_kit) was not available as open source. But from May 2020 [Google with skywater](https://skywater-pdk.readthedocs.io/en/latest/versioning.html) has start providing the fully open source PDK.
+
+So, this workshop was conducted with aim of using all the available open-source resources to build a chip. This workshop used [OpenLane from efabless](https://github.com/efabless/openlane) for RTL design and EDA tools. The [Skywater 13nm PDK](https://github.com/google/skywater-pdk) is used to do the physical implementation of the design. 
 
 # Day 1:
 
